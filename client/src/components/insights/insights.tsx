@@ -3,6 +3,7 @@ import { cx } from "../../lib/cx.ts";
 import styles from "./insights.module.css";
 import type { Insight } from "../../schemas/insight.ts";
 import { BRANDS } from "../../lib/consts.ts";
+import { formatDistanceToNow } from "https://esm.sh/date-fns@3.6.0";
 
 type InsightsProps = {
   insights: Insight[];
@@ -34,7 +35,7 @@ export const Insights = ({ insights, className, onDelete }: InsightsProps) => {
                 <div className={styles["insight-meta"]}>
                   <span>{getBrandName(brandId)}</span>
                   <div className={styles["insight-meta-details"]}>
-                    <span>{createdAt.toString()}</span>
+                    <span>{formatDistanceToNow(new Date(createdAt), { addSuffix: true })}</span>
                     <Trash2Icon
                       className={styles["insight-delete"]}
                       onClick={() => deleteInsight(id)}
