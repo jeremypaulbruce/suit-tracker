@@ -15,7 +15,7 @@ export default (input: Input): Insight | undefined => {
   >`SELECT * FROM insights WHERE id = ${input.id} LIMIT 1`;
 
   if (row) {
-    const result = { ...row, createdAt: new Date(row.createdAt) };
+    const result = { ...row, brandId: row.brand, createdAt: new Date(row.createdAt) };
     console.log("Insight retrieved:", result);
     return result;
   }
