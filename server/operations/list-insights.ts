@@ -7,7 +7,7 @@ type Input = HasDBClient;
 export default (input: Input): Insight[] => {
   console.log("Listing insights");
 
-  const rows = input.db.sql<insightsTable.Row>`SELECT * FROM insights`;
+  const rows = input.db.sql<insightsTable.Row>`SELECT * FROM insights LIMIT 10`;
 
   const result: Insight[] = rows.map((row) => ({
     ...row,
@@ -15,5 +15,6 @@ export default (input: Input): Insight[] => {
   }));
 
   console.log("Retrieved insights successfully: ", result);
+  
   return result;
 };

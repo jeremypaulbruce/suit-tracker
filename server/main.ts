@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import { Database } from "@db/sqlite";
-import * as oak from "@oak/oak";
+import { Application, Router } from "@oak/oak";
 import * as path from "@std/path";
 import { Port } from "../lib/utils/index.ts";
 import listInsights from "./operations/list-insights.ts";
@@ -21,7 +21,8 @@ const db = new Database(dbFilePath);
 
 console.log("Initialising server");
 
-const router = new oak.Router();
+const router = new Router();
+const app = new Application();
 
 router.get("/_health", (ctx) => {
   ctx.response.body = "OK";
@@ -31,7 +32,7 @@ router.get("/_health", (ctx) => {
 router.get("/insights", (ctx) => {
   const result = listInsights({ db });
   ctx.response.body = result;
-  ctx.response.body = 200;
+  ctx.response.status = 200;
 });
 
 router.get("/insights/:id", (ctx) => {
@@ -49,10 +50,9 @@ router.get("/insights/delete", (ctx) => {
   // TODO
 });
 
-const app = new oak.Application();
-
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen(env);
+await app.listen(env);
+
 console.log(`Started server on port ${env.port}`);
