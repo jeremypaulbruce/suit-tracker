@@ -20,5 +20,5 @@ export type Insert = {
   text: string;
 };
 
-export const insertStatement = (item: Insert) =>
-  `INSERT INTO insights (brand, createdAt, text) VALUES (${item.brand}, '${item.createdAt}', '${item.text}')`;
+export const insertStatement = () =>
+  `INSERT INTO insights (brand, text, createdAt) VALUES (?, ?, ?)`;
