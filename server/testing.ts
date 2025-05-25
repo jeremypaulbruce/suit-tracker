@@ -1,6 +1,6 @@
 import { Database } from "@db/sqlite";
 import * as insightsTable from "$tables/insights.ts";
-import { HasDBClient } from "./shared.ts";
+import type { HasDBClient } from "./shared.ts";
 import { afterAll, beforeAll } from "@std/testing/bdd";
 
 type Fixture = HasDBClient & {
@@ -27,7 +27,9 @@ export const withDB = <R>(fn: (fixture: Fixture) => R): R => {
       },
       insert(insights) {
         for (const item of insights) {
-          db.exec(insightsTable.insertStatement(item));
+          db.prepare(
+            "INSERT INTO insights (id, brandId, text, createdAt) VALUES (?, ?, ?, ?)",
+          ).run(item.id, item.brandId, item.text, item.createdAt);
         }
       },
     },
