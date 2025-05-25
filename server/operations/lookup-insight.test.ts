@@ -19,11 +19,6 @@ describe("listing insights in the database", () => {
     });
   });
 
-  function omit<T extends object, K extends keyof T>(obj: T, key: K | "brand"): Omit<T, K | "brand"> {
-    const { [key]: _, ...rest } = obj;
-    return rest;
-  }
-
   describe("insight is in the DB", () => {
     withDB((fixture) => {
       const insights: Insight[] = [
@@ -39,7 +34,6 @@ describe("listing insights in the database", () => {
         fixture.insights.insert(
           insights.map((it) => ({
             ...it,
-            brand: it.brandId,
             createdAt: it.createdAt.toISOString(),
           })),
         );
@@ -47,8 +41,7 @@ describe("listing insights in the database", () => {
       });
 
       it("returns the expected insight", () => {
-        const resultWithoutBrand = omit(result!, "brand");
-        expect(resultWithoutBrand).toEqual(insights[2]);
+        expect(result).toEqual(insights[2]);
       });
     });
   });

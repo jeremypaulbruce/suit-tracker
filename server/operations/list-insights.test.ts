@@ -4,11 +4,6 @@ import type { Insight } from "$models/insight.ts";
 import { withDB } from "../testing.ts";
 import listInsights from "./list-insights.ts";
 
-function omit<T extends object, K extends keyof T>(obj: T, key: K | "brand"): Omit<T, K | "brand"> {
-  const { [key]: _, ...rest } = obj;
-  return rest;
-}
-
 describe("listing insights in the database", () => {
   describe("nothing in the DB", () => {
     withDB((fixture) => {
@@ -39,7 +34,6 @@ describe("listing insights in the database", () => {
         fixture.insights.insert(
           insights.map((it) => ({
             ...it,
-            brand: it.brandId,
             createdAt: it.createdAt.toISOString(),
           })),
         );
@@ -51,8 +45,7 @@ describe("listing insights in the database", () => {
       });
 
       it("returns all insights in the DB", () => {
-        const resultWithoutBrand = result.map((it) => omit(it, "brand"));
-        expect(resultWithoutBrand).toEqual(insights);
+        expect(result).toEqual(insights);
       });
     });
   });
