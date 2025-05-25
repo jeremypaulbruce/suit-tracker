@@ -45,7 +45,6 @@ router.get("/insights/:id", (ctx) => {
 });
 
 router.post("/insights/create", async (ctx) => {
-
   const data = await ctx.request.body.json();
 
   if (!data) {

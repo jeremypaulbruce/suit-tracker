@@ -9,11 +9,11 @@ const TEST_INSIGHTS = [
     createdAt: new Date(),
     text: "Test insight",
   },
-  { 
-    id: 2, 
-    brandId: 2, 
-    createdAt: new Date(), 
-    text: "Another test insight" 
+  {
+    id: 2,
+    brandId: 2,
+    createdAt: new Date(),
+    text: "Another test insight",
   },
 ];
 

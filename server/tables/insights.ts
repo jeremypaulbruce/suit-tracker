@@ -21,10 +21,12 @@ export type Insert = {
   text: string;
 };
 
-export const insertStatement = `INSERT INTO insights (brandId, text, createdAt) VALUES (?, ?, ?)`;
+export const insertStatement =
+  `INSERT INTO insights (brandId, text, createdAt) VALUES (?, ?, ?)`;
 
 export const deleteStatement = `DELETE FROM insights WHERE id = ? LIMIT 1`;
 
-export const listStatement = `SELECT * FROM insights ORDER BY createdAt DESC LIMIT 10`;
+export const listStatement =
+  `SELECT * FROM insights ORDER BY createdAt DESC LIMIT 10`;
 
 export const getByIdStatement = "SELECT * FROM insights WHERE id = ? LIMIT 1";

@@ -35,10 +35,15 @@ export const Insights = ({ insights, className, onDelete }: InsightsProps) => {
                 <div className={styles["insight-meta"]}>
                   <span>{getBrandName(brandId)}</span>
                   <div className={styles["insight-meta-details"]}>
-                    <span>{formatDistanceToNow(new Date(createdAt), { addSuffix: true })}</span>
+                    <span>
+                      {formatDistanceToNow(new Date(createdAt), {
+                        addSuffix: true,
+                      })}
+                    </span>
                     <Trash2Icon
                       className={styles["insight-delete"]}
-                      onClick={() => deleteInsight(id)}
+                      onClick={() =>
+                        deleteInsight(id)}
                     />
                   </div>
                 </div>

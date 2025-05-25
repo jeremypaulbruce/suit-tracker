@@ -3,7 +3,9 @@ import { Button } from "../button/button.tsx";
 import { Modal, type ModalProps } from "../modal/modal.tsx";
 import styles from "./add-insight.module.css";
 
-type AddInsightProps = ModalProps;
+type AddInsightProps = ModalProps & {
+  onInsightAdded?: () => void;
+};
 
 export const AddInsight = (props: AddInsightProps) => {
   const addInsight = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,7 +35,9 @@ export const AddInsight = (props: AddInsightProps) => {
       <form className={styles.form} onSubmit={addInsight} method="POST">
         <label className={styles.field}>
           <select name="brandId" className={styles["field-input"]}>
-            {BRANDS.map(({ id, name }, index) => <option value={id} key={index}>{name}</option>)}
+            {BRANDS.map(({ id, name }, index) => (
+              <option value={id} key={index}>{name}</option>
+            ))}
           </select>
         </label>
         <label className={styles.field}>
